@@ -7,6 +7,10 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import CloudQueueIcon from '@mui/icons-material/CloudQueue';
 import RenderItem from './RenderItem';
 import { styled } from "@mui/material/styles";
+import { Box } from "@material-ui/core";
+
+// package .json begore finagling for Box
+// "react": "^18.2.0",
 
 export default function LabelBottomNavigation() {
   const [value, setValue] = React.useState('');
@@ -23,7 +27,7 @@ export default function LabelBottomNavigation() {
 
   return (
     <div>
-   <RenderItem valnav={value}> </RenderItem>
+    <RenderItem valnav={value}> </RenderItem>
     <BottomNavigation sx={{ width: 1 }} value={value} onChange={handleChange}>
       <BottomNavigationAction 
         label="World Cloud" 
