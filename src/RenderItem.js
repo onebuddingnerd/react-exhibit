@@ -89,25 +89,26 @@ export default class RenderItem extends React.Component {
             // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
             text: 'Hey, this has no correspondence to the word cloud!?',
             avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
-            replies: []
-          },
-          {
-            userId: '028',
-            comId: '019',
-            fullName: 'Person 4',
-            // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
-            text: 'I think the developer said he was not good enough yet to fully connect the back end API. Hopefully he shores up his competence soon.',
-            avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
-            replies: []
-          },
-          {
-            userId: '030',
-            comId: '020',
-            fullName: 'Person 5',
-            // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
-            text: 'Perhaps person 4 is being a tad harsh? He did say the project was just getting started. Plus, he fitted the component into a scroller-view!',
-            avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
-            replies: []
+            replies: [
+                {
+                    userId: '028',
+                    comId: '019',
+                    fullName: 'Person 4',
+                    // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+                    text: 'I think the developer said he was not good enough yet to fully connect the back end API. Hopefully he shores up his competence soon.',
+                    avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
+                    replies: []
+                },
+                {
+                    userId: '030',
+                    comId: '020',
+                    fullName: 'Person 5',
+                    // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+                    text: 'Perhaps person 4 is being a tad harsh? He did say the project was just getting started. Plus, he managed a fitting of this section into a scroller view!',
+                    avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
+                    replies: []
+                  },
+            ]
           },
         ],
         histogramMode : "Total"
@@ -302,12 +303,12 @@ export default class RenderItem extends React.Component {
             }
             { isChartMode ?
                 <Chart id="chart" onLegendClick={this.legendClickHandler}
-                    title="Gross State Product within the Great Lakes Region"
+                    title="Course Ratings by Criterion"
                     dataSource={grossProductData}
                     onPointClick={this.onPointClick}
                 >
                     <CommonSeriesSettings  
-                    argumentField="state"
+                    argumentField="Criterion"
                     type="bar"
                     hoverMode="allArgumentPoints"
                     selectionMode="allArgumentPoints"
@@ -317,17 +318,16 @@ export default class RenderItem extends React.Component {
                     </Label>
                     </CommonSeriesSettings>
                     <Series hoverMode="allSeriesPoints"
-                    argumentField="state"
-                    valueField="year2021"
-                    name="2021"
+                    valueField="Course_15122"
+                    name="15122"
                     />
                     <Series
-                    valueField="year2020"
-                    name="2017"
+                    valueField="Course_15150"
+                    name="15122"
                     />
                     <Series
-                    valueField="year2019"
-                    name="2019"
+                    valueField="Course_15210"
+                    name="15210"
                     />
                     <Legend verticalAlignment="bottom" horizontalAlignment="center"></Legend>
                     <Export enabled={true} />
@@ -358,6 +358,7 @@ export default class RenderItem extends React.Component {
             }
             { isWrittenReviewsMode ?
                 <CommentSection
+                advancedInput={true}
                 currentUser={{
                   currentUserId: '01a',
                   currentUserImg:
