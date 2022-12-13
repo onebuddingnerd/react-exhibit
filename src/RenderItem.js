@@ -10,8 +10,20 @@ import { render } from 'react-dom';
 import WordCloud from 'react-d3-cloud';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
+import { HistogramChart } from "@carbon/charts-react";
+
+import Plot from 'react-plotly.js';
+import { Button } from '@mui/material';
+
+import ClassComponent from './WrittenReviews.js';
 
 // import { StyleSheet, Text, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+
+// import {AxisModel, HistogramSeries, Category, ChartComponent, Inject, SeriesCollectionDirective, SeriesDirective} from'@syncfusion/ej2-react-charts';
+
+// import ClassComponent from './WrittenReviews.js';
+import { CommentSection } from 'react-comments-section'
+import 'react-comments-section/dist/index.css'
 
 import CanvasJSReact from './canvasjs.react';
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -45,8 +57,67 @@ div.scroll {
   padding: 20px;
 }
 `
+  
+const rawData = Array(100).fill().map(Math.random);
 
 export default class RenderItem extends React.Component {
+
+    state = {
+        dataComments: [
+          {
+            userId: '01a',
+            comId: '012',
+            fullName: 'Person 1',
+            avatarUrl: 'https://ui-avatars.com/api/name=Riya&background=random',
+            // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+            text: 'Credit to RiyaNegi',
+            replies: []
+          },
+          {
+            userId: '02b',
+            comId: '017',
+            fullName: 'Person 2',
+            // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+            text: 'Really, there needs to be upvoting on here!',
+            avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
+            replies: []
+          },
+          {
+            userId: '027',
+            comId: '018',
+            fullName: 'Person 3',
+            // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+            text: 'Hey, this has no correspondence to the word cloud!?',
+            avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
+            replies: []
+          },
+          {
+            userId: '028',
+            comId: '019',
+            fullName: 'Person 4',
+            // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+            text: 'I think the developer said he was not good enough yet to fully connect the back end API. Hopefully he shores up his competence soon.',
+            avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
+            replies: []
+          },
+          {
+            userId: '030',
+            comId: '020',
+            fullName: 'Person 5',
+            // userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+            text: 'Perhaps person 4 is being a tad harsh? He did say the project was just getting started. Plus, he fitted the component into a scroller-view!',
+            avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
+            replies: []
+          },
+        ],
+        histogramMode : "Total"
+      }
+    
+      onSubmitAction = (data:any) => {
+        console.log('this comment was posted!',data)
+      }
+    
+      customNoComment = () => <div className='no-com'>No comments wohoooo!</div>
 
     constructor() {
 		super();
@@ -62,7 +133,21 @@ export default class RenderItem extends React.Component {
 		this.chart.render();
 	}
 
+    refreshHoursMode = (newMode) => {
+        this.setState({histogramMode: newMode})
+    };
+
     render () {
+
+        var histogramX = this.state.histogramMode === "Total" ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
+                    : this.state.histogramMode === "OH" ? [1, 2, 3, 4, 5, 6, 7, 8] 
+                    : this.state.histogramMode === "Lecture" ? [1, 2, 3, 4, 5, 6, 7] : 
+                    [1, 2, 3, 4, 5, 6, 7, 8, 9] 
+
+        var histogramY = this.state.histogramMode === "Total" ? [0, 2, 3, 0, 5, 6, 7, 1, 2, 1]
+                    : this.state.histogramMode === "OH" ? [2, 5, 3, 2, 5, 3, 2, 5]
+                    : this.state.histogramMode === "Lecture" ? [3, 2, 6, 1, 3, 6, 7] : 
+                    [2, 5, 3, 2, 5, 3, 2, 5, 3]
 
         const hoursOptions = {
 			animationEnabled: true,
@@ -251,14 +336,44 @@ export default class RenderItem extends React.Component {
                 <p></p>
             }
             { isHoursMode ?
-                <CanvasJSChart options = {hoursOptions}
-				    onRef={ref => this.chart = ref}
-			    />
+                <div>
+                <Plot
+                    data={[
+                    
+                    {type: 'bar', x: histogramX, y: histogramY},
+                    ]}
+                    layout={ {autosize: true, title: 'Hour Spent Per Week'} }
+                    useResizeHandler={true}
+                    style={{width: "100%", height: "100%"}}
+                />
+                <center>
+                <Button onClick={ () => this.refreshHoursMode("Total") }>Total</Button> | 
+                <Button onClick={ () => this.refreshHoursMode("OH") }>OH</Button>
+                <Button onClick={ () => this.refreshHoursMode("Misc") }>Rec./Misc.</Button>
+                <Button onClick={ () => this.refreshHoursMode("Lecture") }>Lecture</Button>
+                </center>
+                </div>
                 :
                 <p></p>
             }
             { isWrittenReviewsMode ?
-                <p>Written Reviews</p>
+                <CommentSection
+                currentUser={{
+                  currentUserId: '01a',
+                  currentUserImg:
+                    'https://ui-avatars.com/api/name=Riya&background=random',
+                  currentUserProfile:
+                    'https://www.linkedin.com/in/riya-negi-8879631a9/',
+                  currentUserFullName: 'Riya Negi'
+                }}
+                commentData={this.state.dataComments}
+                onSubmitAction={(data:any) => this.onSubmitAction(data)}
+                customNoComment={() => this.customNoComment()}
+                logIn={{
+                  loginLink: 'http://localhost:3001/',
+                  signupLink: 'http://localhost:3001/'
+                }}
+              />
                 :
                 <p></p>
             }
