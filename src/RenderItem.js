@@ -141,14 +141,14 @@ export default class RenderItem extends React.Component {
     render () {
 
         var histogramX = this.state.histogramMode === "Total" ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
-                    : this.state.histogramMode === "OH" ? [1, 2, 3, 4, 5, 6, 7, 8] 
-                    : this.state.histogramMode === "Lecture" ? [1, 2, 3, 4, 5, 6, 7] : 
-                    [1, 2, 3, 4, 5, 6, 7, 8, 9] 
+                    : this.state.histogramMode === "OH" ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
+                    : this.state.histogramMode === "Lecture" ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] : 
+                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
 
-        var histogramY = this.state.histogramMode === "Total" ? [0, 2, 3, 0, 5, 6, 7, 1, 2, 1]
-                    : this.state.histogramMode === "OH" ? [2, 5, 3, 2, 5, 3, 2, 5]
-                    : this.state.histogramMode === "Lecture" ? [3, 2, 6, 1, 3, 6, 7] : 
-                    [2, 5, 3, 2, 5, 3, 2, 5, 3]
+        var histogramY = this.state.histogramMode === "Total" ? [7, 13, 11, 5, 13, 12, 14, 10, 3, 0]
+                    : this.state.histogramMode === "OH" ? [2, 5, 3, 2, 5, 3, 2, 5, 0, 0]
+                    : this.state.histogramMode === "Lecture" ? [3, 2, 6, 1, 3, 6, 7, 0, 0, 0] : 
+                    [2, 5, 3, 2, 5, 3, 2, 5, 3, 0]
 
         const hoursOptions = {
 			animationEnabled: true,
@@ -272,7 +272,7 @@ export default class RenderItem extends React.Component {
         const isWrittenReviewsMode = greeter === "Written Reviews";
         return (
             <div>
-            <h1> <center> {greeter} </center> </h1>
+            <h1> <center> {greeter} for 15122 </center> </h1>
             <div class="scroll">
             <style>{divCss}</style>
             {
@@ -323,7 +323,7 @@ export default class RenderItem extends React.Component {
                     />
                     <Series
                     valueField="Course_15150"
-                    name="15122"
+                    name="15150"
                     />
                     <Series
                     valueField="Course_15210"
@@ -342,7 +342,7 @@ export default class RenderItem extends React.Component {
                     
                     {type: 'bar', x: histogramX, y: histogramY},
                     ]}
-                    layout={ {autosize: true, title: 'Hour Spent Per Week'} }
+                    layout={ {autosize: true, title: 'Hours Spent Per Week'} }
                     useResizeHandler={true}
                     style={{width: "100%", height: "100%"}}
                 />
